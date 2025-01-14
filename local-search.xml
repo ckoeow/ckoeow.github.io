@@ -27,34 +27,9 @@
     <link href="/2025/01/11/hello-world/"/>
     <url>/2025/01/11/hello-world/</url>
     
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
     
     
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>闲话</title>
-    <link href="/2025/01/01/%E9%97%B2%E8%AF%9D/"/>
-    <url>/2025/01/01/%E9%97%B2%E8%AF%9D/</url>
-    
-    <content type="html"><![CDATA[<p>2025年新年快乐！<br>又是新的一年，希望能在这新的一年里不断进步，万事顺遂！</p><p>刚刚结束元旦联欢下午会之后，回到家是空虚的，狂欢之后总是寂静，总是懊悔。不得不说，茉莉花茶确实好喝，也不知道她是怎么选出来生椰茉莉的。说到这个，便想起了我与她的交集了。自3月4日表白同意后，过了也块一年了，经历了很多事情，关系也更进一步，但是现在并不想更进一步了，被路志伟逮到后，我们算是死亡了，我说了一声路志伟来了就走了，等我回过神来她还在原地一动不动，然后路志伟就这么走过来了，我也就这么离开了。叫家长，写检讨，写保证，班会，都干过了，当时被遣返回家的那天正好是吴敬龙念检讨，可惜没去听了。人生果然就是起起落落啊，当时好像刚刚拿下淄博市csp初赛第五吧，然后就输的如此彻底。后来的月考，csp-s2，noip也都考的不理想，当然，这也是后话了。也不知道被抓之前能考班里第四，被抓了之后考不到了这算不算谈恋爱不影响学习。后来吧总感觉自己像是一个罪人，就这么抛弃了一个如此信任自己的人，就这么变得越来越垃圾。我现在真的还有脸去见她吗？我真的能去见她吗？去挑逗，勾引？“以后lch不能踏进我的家门一步！”“我当时哭着求路志伟，让我回去上课”张玉英谁的说得对，我还是太幼稚了，如果褪去成绩的光环，我一无是处，只是一个不愿长大的小孩而已，是弟中之弟罢了，noip考废了之后，我剩下的只有文化课了，我必须把文化课提上去，但是现在好像和她的关系变得近了，这样或许会影响吧，但是我却不清楚如何断掉，就简单的不理她？或许这样太残忍，或许就正常和她说吧，但是这样又怕她不接受。唉，就先这样吧。</p><p>说到这个了，自然也就想到李浩当时在办公室里和我说的话了。证实了于海诺的话，是的，我爸妈是lh的老师，而且他当时还问我我是否原先喜欢过于海诺。自然，肯定是瞒不过去的，也就承认了。笑死了，第二个让我我承认喜欢海姐的，居然是我的班主任。他当时说的话好刺耳，但是却也都是事实。我追海姐，没追上，然后放弃，然后换了个继续追，然后追上了，然后就这样了，影响了两个人，伤害了许多许多人，而这些一切都是因我而起，都是因我而起，都是因我而起，都是因我而起。我是个渣男，是个斯文败类，什么也不是，虽然曾经听过无数次不要贬低自己，但是这确实全都是我的错，我又有什么可狡辩的呢？我这次又准备拿出什么借口来搪塞呢？我的行为就是欺骗别人感情。就是。感觉自己总是一个人，总是留下一些秘密不想让别人知道，很唐的样子，并且总感觉自己更应该一个人。我不应该去找对象也应该被禁止。我不像hyt那样多才多艺，zry那样聪明，nyx那样人缘好又有信服力，这么想来，自己好像纯纯是关系户，是自己最鄙视的那种人。现在知道这个事情的我身边的同学只有fyr和yhn。“如果要我选的话，我宁愿你选择yhn，就光拼搏精神而言两者高下立判。”“人家于海诺中体嘉年华还第二来，怎么没见到你的名字啊？”“能不能和人家断干净？”这么一看自己简直是傻逼，不对，就是傻逼。我不想面对这一切，但同时又不想成为btx的样子。一边期望这能够成为那个样子从而可以休息休息，不再想这么多，一边又想着自己必须避免那个样子，想着自己要是那个样子，会给父母增加很多麻烦，而且证明了自己心理脆弱，于是总是强迫自己去坚强，去勇敢，去变得成熟，然后失败。突然想到昨天晚上又梦到她了，不过，这次梦到的是被逮到，然后被批评，然后从此再也没人信任我亲近我了。然后就“忽魂悸以魄动 恍惊起而长嗟”了，如此噩梦再也不想再做第二次了，比原先做过的关于学府的噩梦和在草原悬崖上的梦恐怖多了。</p><p>必须断干净。</p>]]></content>
-    
-    
-    <categories>
-      
-      <category>个人记录</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>闲话</tag>
-      
-    </tags>
     
   </entry>
   
