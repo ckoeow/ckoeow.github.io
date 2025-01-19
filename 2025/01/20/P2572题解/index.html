@@ -1,0 +1,892 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="lch">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="P2572 [SCOI2010] 序列操作 题解 题目传送门 一个线段树比较板的题吧算是，考察的思维比较少，主要还是代码的实现能力。 看题。一眼线段树，区间赋值，区间取反，区间求和，区间连续最大。 于是想可以线段树维护区间的1的个数，最多的1的数量。但是只维护这些无法转移，于是为了转移最多的1的数量，还需再维护最长的前缀1和后缀1. 同理，因为有取反，所以同时维护0的如上信息，取反的时候将0和1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="P2572题解">
+<meta property="og:url" content="http://example.com/2025/01/20/P2572%E9%A2%98%E8%A7%A3/index.html">
+<meta property="og:site_name" content="ckoeow">
+<meta property="og:description" content="P2572 [SCOI2010] 序列操作 题解 题目传送门 一个线段树比较板的题吧算是，考察的思维比较少，主要还是代码的实现能力。 看题。一眼线段树，区间赋值，区间取反，区间求和，区间连续最大。 于是想可以线段树维护区间的1的个数，最多的1的数量。但是只维护这些无法转移，于是为了转移最多的1的数量，还需再维护最长的前缀1和后缀1. 同理，因为有取反，所以同时维护0的如上信息，取反的时候将0和1">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-01-19T16:05:32.000Z">
+<meta property="article:modified_time" content="2025-01-19T16:17:40.004Z">
+<meta property="article:author" content="lch">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>P2572题解 - ckoeow</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ckoeow</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="P2572题解"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-01-20 00:05" pubdate>
+          2025年1月20日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          12 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">P2572题解</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="p2572-scoi2010-序列操作-题解"><a class="markdownIt-Anchor" href="#p2572-scoi2010-序列操作-题解"></a> P2572 [SCOI2010] 序列操作 题解</h1>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2572">题目传送门</a></p>
+<p>一个线段树比较板的题吧算是，考察的思维比较少，主要还是代码的实现能力。</p>
+<p>看题。一眼线段树，区间赋值，区间取反，区间求和，区间连续最大。</p>
+<p>于是想可以线段树维护区间的1的个数，最多的1的数量。但是只维护这些无法转移，于是为了转移最多的1的数量，还需再维护最长的前缀1和后缀1.</p>
+<p>同理，因为有取反，所以同时维护0的如上信息，取反的时候将0和1的交换一下即可。</p>
+<p>剩下的就是细节的问题了。求区间连续最大的时候不能直接将两个区间的连续取最大，还需像线段树的转移一样合并区间才可，详见AC代码的merge函数。在标记下传的时候需要考虑哪个的优先级高，这个倒是挺容易想：肯定是先传set再传reverse，因为set完还可reverse，但是reverse完set的话reverse的信息都被覆盖了。</p>
+<p>另外这里还有魔鬼细节：下标从0开始，习惯了写从1开始的话在读入的时候加上一就可以。</p>
+<p>最后就是别忘了pushdown！</p>
+<p>AC代码如下：</p>
+<pre class="highlight"><code class="c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-type">long</span> <span class="hljs-type">long</span> ll;
+<span class="hljs-keyword">typedef</span> pair&lt;ll, ll&gt; pll;
+<span class="hljs-keyword">typedef</span> <span class="hljs-type">double</span> dd;
+
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> IOS cin.tie(nullptr), cout.tie(nullptr)-&gt;sync_with_stdio(false)</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> rep(i, a, b) for (int i = (a); i &lt;= (b); i ++)</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> per(i, a, b) for (int i = (a); i &gt;= (b); i --)</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> mset(x, v) memset(x, v, sizeof x)</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> pb push_back</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> endl <span class="hljs-string">&#x27;\n&#x27;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> fi first</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> se second</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> rd read<span class="hljs-string">&lt;ll&gt;</span>()</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> RAND() mt19937 Rand(time(0))</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> gr(l, r) (Rand() % (r - l + 1) + l)</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> SZ(x) ((ll)x.size())</span>
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt; <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Max</span><span class="hljs-params">(T &amp;x, T y)</span> </span>&#123; <span class="hljs-keyword">if</span> (y &gt; x) x = y; &#125;
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt; <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Min</span><span class="hljs-params">(T &amp;x, T y)</span> </span>&#123; <span class="hljs-keyword">if</span> (y &lt; x) x = y; &#125;
+
+<span class="hljs-keyword">namespace</span> FastIO
+&#123;
+	<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt; <span class="hljs-function">T <span class="hljs-title">read</span><span class="hljs-params">()</span>
+	</span>&#123;
+		<span class="hljs-type">bool</span> fl = <span class="hljs-number">0</span>; T x = <span class="hljs-number">0</span>; <span class="hljs-type">char</span> ch = <span class="hljs-built_in">getchar</span>();
+		<span class="hljs-keyword">for</span> (; ch &lt; <span class="hljs-string">&#x27;0&#x27;</span> || ch &gt; <span class="hljs-string">&#x27;9&#x27;</span>; ch = <span class="hljs-built_in">getchar</span>()) <span class="hljs-keyword">if</span> (ch == <span class="hljs-string">&#x27;-&#x27;</span>) fl = <span class="hljs-number">1</span>;
+		<span class="hljs-keyword">for</span> (; ch &gt;= <span class="hljs-string">&#x27;0&#x27;</span> &amp;&amp; ch &lt;= <span class="hljs-string">&#x27;9&#x27;</span>; ch = <span class="hljs-built_in">getchar</span>()) x = x * <span class="hljs-number">10</span> + ch - <span class="hljs-string">&#x27;0&#x27;</span>;
+		<span class="hljs-keyword">return</span> fl ? -x : x;
+	&#125;
+
+	<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt; <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">write</span><span class="hljs-params">(T x)</span>
+	</span>&#123;
+		<span class="hljs-keyword">if</span> (x &lt; <span class="hljs-number">0</span>) <span class="hljs-built_in">putchar</span>(<span class="hljs-string">&#x27;-&#x27;</span>), x = -x;
+		<span class="hljs-keyword">if</span> (x &gt; <span class="hljs-number">9</span>) <span class="hljs-built_in">write</span>(x / <span class="hljs-number">10</span>);
+		<span class="hljs-built_in">putchar</span>(x % <span class="hljs-number">10</span> + <span class="hljs-string">&#x27;0&#x27;</span>);
+	&#125;
+
+	<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt; <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">writecs</span><span class="hljs-params">(T x)</span> </span>&#123; <span class="hljs-built_in">write</span>(x); <span class="hljs-built_in">putchar</span>(<span class="hljs-string">&#x27; &#x27;</span>); &#125;
+	<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt; <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">writeln</span><span class="hljs-params">(T x)</span> </span>&#123; <span class="hljs-built_in">write</span>(x); <span class="hljs-built_in">putchar</span>(<span class="hljs-string">&#x27;\n&#x27;</span>); &#125;
+&#125;
+
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> FastIO;
+
+<span class="hljs-comment">/*-----------------------main-----------------------*/</span>
+
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> <span class="hljs-keyword">line</span> cout &lt;&lt; <span class="hljs-string">&quot;-------------------\n&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> N 100005</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> lc p&lt;&lt;1</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> rc p&lt;&lt;1|1</span>
+
+<span class="hljs-keyword">struct</span> <span class="hljs-title class_">node</span>
+&#123;
+	ll l, r;
+	ll s0, s1, l0, l1;
+	ll p0, p1, sf0, sf1;
+	ll rev, st = <span class="hljs-number">-1</span>;
+&#125; tr[N&lt;&lt;<span class="hljs-number">2</span>];
+
+<span class="hljs-keyword">struct</span> <span class="hljs-title class_">Q</span>
+&#123;
+	ll l, r, l1, p1, sf1;
+&#125;;
+
+ll n, m, a[N];
+
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">pushup</span><span class="hljs-params">(ll p)</span>
+</span>&#123;
+	node L = tr[lc], R = tr[rc], nw = tr[p];
+	nw.s0 = L.s0 + R.s0;
+	nw.s1 = L.s1 + R.s1;
+	nw.l0 = <span class="hljs-built_in">max</span>(&#123;L.l0, R.l0, L.sf0 + R.p0&#125;);
+	nw.l1 = <span class="hljs-built_in">max</span>(&#123;L.l1, R.l1, L.sf1 + R.p1&#125;);
+	nw.p0 = (L.p0 == (L.r - L.l + <span class="hljs-number">1</span>)) ? L.p0 + R.p0 : L.p0;
+	nw.p1 = (L.p1 == (L.r - L.l + <span class="hljs-number">1</span>)) ? L.p1 + R.p1 : L.p1;
+	nw.sf0 = (R.sf0 == (R.r - R.l + <span class="hljs-number">1</span>)) ? R.sf0 + L.sf0 : R.sf0;
+	nw.sf1 = (R.sf1 == (R.r - R.l + <span class="hljs-number">1</span>)) ? R.sf1 + L.sf1 : R.sf1;
+	tr[p] = nw;
+&#125;
+
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">upd</span><span class="hljs-params">(ll p, ll rev, ll st)</span>
+</span>&#123;
+	<span class="hljs-keyword">if</span> (rev)
+	&#123;
+		<span class="hljs-built_in">swap</span>(tr[p].s0, tr[p].s1); <span class="hljs-built_in">swap</span>(tr[p].l0, tr[p].l1);
+		<span class="hljs-built_in">swap</span>(tr[p].p0, tr[p].p1); <span class="hljs-built_in">swap</span>(tr[p].sf0, tr[p].sf1);
+	&#125;
+	<span class="hljs-keyword">else</span>
+	&#123;
+		<span class="hljs-keyword">if</span> (st == <span class="hljs-number">0</span>)
+		&#123;
+			tr[p].s0 = tr[p].l0 = tr[p].p0 = tr[p].sf0 = tr[p].r - tr[p].l + <span class="hljs-number">1</span>;
+			tr[p].s1 = tr[p].l1 = tr[p].p1 = tr[p].sf1 = <span class="hljs-number">0</span>;
+		&#125;
+		<span class="hljs-keyword">else</span>
+		&#123;
+			tr[p].s0 = tr[p].l0 = tr[p].p0 = tr[p].sf0 = <span class="hljs-number">0</span>;
+			tr[p].s1 = tr[p].l1 = tr[p].p1 = tr[p].sf1 = tr[p].r - tr[p].l + <span class="hljs-number">1</span>;
+		&#125;
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">pushdown</span><span class="hljs-params">(ll p)</span>
+</span>&#123;
+	<span class="hljs-keyword">if</span> (tr[p].st != <span class="hljs-number">-1</span>)
+	&#123;
+		<span class="hljs-built_in">upd</span>(lc, <span class="hljs-number">0</span>, tr[p].st);
+		<span class="hljs-built_in">upd</span>(rc, <span class="hljs-number">0</span>, tr[p].st);
+		tr[lc].st = tr[rc].st = tr[p].st;
+		tr[lc].rev = tr[rc].rev = <span class="hljs-number">0</span>;
+		tr[p].st = <span class="hljs-number">-1</span>;
+	&#125;
+	<span class="hljs-keyword">if</span> (tr[p].rev)
+	&#123;
+		<span class="hljs-built_in">upd</span>(lc, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>);
+		<span class="hljs-built_in">upd</span>(rc, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>);
+		tr[lc].rev ^= <span class="hljs-number">1</span>;
+		tr[rc].rev ^= <span class="hljs-number">1</span>;
+		tr[p].rev = <span class="hljs-number">0</span>;
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">build</span><span class="hljs-params">(ll l, ll r, ll p)</span>
+</span>&#123;
+	tr[p].l = l;
+	tr[p].r = r;
+	<span class="hljs-keyword">if</span> (l == r)
+	&#123;
+		<span class="hljs-keyword">if</span> (a[l] == <span class="hljs-number">0</span>)
+		&#123;
+			tr[p].s0 = tr[p].l0 = tr[p].p0 = tr[p].sf0 = <span class="hljs-number">1</span>;
+			tr[p].s1 = tr[p].l1 = tr[p].p1 = tr[p].sf1 = <span class="hljs-number">0</span>;
+		&#125;
+		<span class="hljs-keyword">else</span>
+		&#123;
+			tr[p].s0 = tr[p].l0 = tr[p].p0 = tr[p].sf0 = <span class="hljs-number">0</span>;
+			tr[p].s1 = tr[p].l1 = tr[p].p1 = tr[p].sf1 = <span class="hljs-number">1</span>;
+		&#125;
+		<span class="hljs-keyword">return</span> ;
+	&#125;
+	ll mid = (l + r) &gt;&gt; <span class="hljs-number">1</span>;
+	<span class="hljs-built_in">build</span>(l, mid, lc);
+	<span class="hljs-built_in">build</span>(mid + <span class="hljs-number">1</span>, r, rc);
+	<span class="hljs-built_in">pushup</span>(p);
+&#125;
+
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">assign</span><span class="hljs-params">(ll p, ll l, ll r, ll st)</span>
+</span>&#123;
+	<span class="hljs-keyword">if</span> (l &lt;= tr[p].l &amp;&amp; tr[p].r &lt;= r)
+	&#123;
+		<span class="hljs-built_in">upd</span>(p, <span class="hljs-number">0</span>, st);
+		tr[p].rev = <span class="hljs-number">0</span>;
+		tr[p].st = st;
+		<span class="hljs-keyword">return</span> ;
+	&#125;
+	<span class="hljs-built_in">pushdown</span>(p);
+	ll mid = (tr[p].l + tr[p].r) &gt;&gt; <span class="hljs-number">1</span>;
+	<span class="hljs-keyword">if</span> (l &lt;= mid) <span class="hljs-built_in">assign</span>(lc, l, r, st);
+	<span class="hljs-keyword">if</span> (r &gt; mid) <span class="hljs-built_in">assign</span>(rc, l, r, st);
+	<span class="hljs-built_in">pushup</span>(p);
+&#125;
+
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">reverse</span><span class="hljs-params">(ll p, ll l, ll r)</span>
+</span>&#123;
+	<span class="hljs-keyword">if</span> (l &lt;= tr[p].l &amp;&amp; tr[p].r &lt;= r)
+	&#123;
+		<span class="hljs-built_in">upd</span>(p, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>);
+		tr[p].rev ^= <span class="hljs-number">1</span>;
+		<span class="hljs-keyword">return</span> ;
+	&#125;
+	<span class="hljs-built_in">pushdown</span>(p);
+	ll mid = (tr[p].l + tr[p].r) &gt;&gt; <span class="hljs-number">1</span>;
+	<span class="hljs-keyword">if</span> (l &lt;= mid) <span class="hljs-built_in">reverse</span>(lc, l, r);
+	<span class="hljs-keyword">if</span> (r &gt; mid) <span class="hljs-built_in">reverse</span>(rc, l, r);
+	<span class="hljs-built_in">pushup</span>(p);
+&#125;
+
+<span class="hljs-function">ll <span class="hljs-title">qsum</span><span class="hljs-params">(ll p, ll l, ll r)</span>
+</span>&#123;
+	<span class="hljs-keyword">if</span> (l &lt;= tr[p].l &amp;&amp; tr[p].r &lt;= r)
+	&#123;
+		<span class="hljs-keyword">return</span> tr[p].s1;
+	&#125;
+	<span class="hljs-built_in">pushdown</span>(p);
+	ll mid = (tr[p].l + tr[p].r) &gt;&gt; <span class="hljs-number">1</span>, tmp = <span class="hljs-number">0</span>;
+	<span class="hljs-keyword">if</span> (l &lt;= mid) tmp += <span class="hljs-built_in">qsum</span>(lc, l, r);
+	<span class="hljs-keyword">if</span> (r &gt; mid) tmp += <span class="hljs-built_in">qsum</span>(rc, l, r);
+	<span class="hljs-keyword">return</span> tmp;
+&#125;
+
+<span class="hljs-function">Q <span class="hljs-title">merge</span><span class="hljs-params">(Q x, Q y)</span>
+</span>&#123;
+	Q as; as.l = x.l; as.r = y.r;
+	as.l1 = <span class="hljs-built_in">max</span>(&#123;x.l1, y.l1, x.sf1 + y.p1&#125;);
+	as.p1 = (x.p1 == (x.r - x.l + <span class="hljs-number">1</span>)) ? x.p1 + y.p1 : x.p1;
+	as.sf1 = (y.sf1 == (y.r - y.l + <span class="hljs-number">1</span>)) ? y.sf1 + x.sf1 : y.sf1;
+	<span class="hljs-keyword">return</span> as;
+&#125;
+
+<span class="hljs-function">Q <span class="hljs-title">ql</span><span class="hljs-params">(ll p, ll l, ll r)</span>
+</span>&#123;
+	<span class="hljs-keyword">if</span> (l &lt;= tr[p].l &amp;&amp; tr[p].r &lt;= r)
+	&#123;
+		<span class="hljs-keyword">return</span> &#123;tr[p].l, tr[p].r, tr[p].l1, tr[p].p1, tr[p].sf1&#125;;
+	&#125;
+	<span class="hljs-built_in">pushdown</span>(p);
+	ll mid = (tr[p].l + tr[p].r) &gt;&gt; <span class="hljs-number">1</span>;
+	Q tmp; tmp.l = <span class="hljs-number">-1</span>;
+	<span class="hljs-keyword">if</span> (l &lt;= mid) tmp = <span class="hljs-built_in">ql</span>(lc, l, r);
+	<span class="hljs-keyword">if</span> (r &gt; mid) tmp = (tmp.l == <span class="hljs-number">-1</span>) ? <span class="hljs-built_in">ql</span>(rc, l, r) : <span class="hljs-built_in">merge</span>(tmp, <span class="hljs-built_in">ql</span>(rc, l, r));
+	<span class="hljs-keyword">return</span> tmp;
+&#125;
+
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">solv</span><span class="hljs-params">()</span>
+</span>&#123;
+	n = rd, m = rd;
+	<span class="hljs-built_in">rep</span>(i, <span class="hljs-number">1</span>, n) a[i] = rd;
+	<span class="hljs-built_in">build</span>(<span class="hljs-number">1</span>, n, <span class="hljs-number">1</span>);
+	<span class="hljs-keyword">while</span> (m --)
+	&#123;
+		ll opt = rd, l = rd + <span class="hljs-number">1</span>, r = rd + <span class="hljs-number">1</span>;
+		<span class="hljs-keyword">if</span> (opt == <span class="hljs-number">0</span>) <span class="hljs-built_in">assign</span>(<span class="hljs-number">1</span>, l, r, <span class="hljs-number">0</span>);
+		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (opt == <span class="hljs-number">1</span>) <span class="hljs-built_in">assign</span>(<span class="hljs-number">1</span>, l, r, <span class="hljs-number">1</span>);
+		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (opt == <span class="hljs-number">2</span>) <span class="hljs-built_in">reverse</span>(<span class="hljs-number">1</span>, l, r);
+		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (opt == <span class="hljs-number">3</span>) <span class="hljs-built_in">writeln</span>(<span class="hljs-built_in">qsum</span>(<span class="hljs-number">1</span>, l, r));
+		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (opt == <span class="hljs-number">4</span>) <span class="hljs-built_in">writeln</span>(<span class="hljs-built_in">ql</span>(<span class="hljs-number">1</span>, l, r).l1);
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-type">signed</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span>&#123;
+<span class="hljs-comment">//	freopen(&quot;.in&quot;, &quot;r&quot;, stdin);</span>
+<span class="hljs-comment">//	freopen(&quot;.out&quot;, &quot;w&quot;, stdout);</span>
+	ll TC = <span class="hljs-number">1</span>;
+	<span class="hljs-keyword">while</span> (TC --) <span class="hljs-built_in">solv</span>();
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;
+</code></pre>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%A2%98%E8%A7%A3/" class="category-chain-item">题解</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>P2572题解</div>
+      <div>http://example.com/2025/01/20/P2572题解/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>lch</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年1月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/01/18/%E6%94%B6%E8%97%8F%E5%A4%B9/" title="收藏夹">
+                        <span class="hidden-mobile">收藏夹</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
