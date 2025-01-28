@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://cdn.luogu.com.cn/upload/image_hosting/m19c6bsp.png">
 <meta property="og:image" content="https://cdn.luogu.com.cn/upload/image_hosting/prbse4cv.png">
 <meta property="article:published_time" content="2025-01-24T13:31:56.000Z">
-<meta property="article:modified_time" content="2025-01-27T10:10:55.948Z">
+<meta property="article:modified_time" content="2025-01-28T16:41:46.227Z">
 <meta property="article:author" content="lch">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://cdn.luogu.com.cn/upload/image_hosting/m19c6bsp.png">
@@ -229,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          1.7k 字
         
       </span>
     
@@ -240,7 +240,7 @@
         
         
         
-          11 分钟
+          15 分钟
         
       </span>
     
@@ -327,7 +327,16 @@
 <p>但是这里遇到了一个问题，因为zkw不像递归版本是自上往下找叶子节点，在路上就更新，所以打懒标记的时候就需要一个技巧：标记永久化。顾名思义，就是打的lazytag不进行pushdown，直接就留在原地。</p>
 <p>上代码</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">update_add</span><span class="hljs-params">(<span class="hljs-type">int</span> l, <span class="hljs-type">int</span> r, ll k)</span> </span>&#123;<br>	l=P+l<span class="hljs-number">-1</span>;<br>	r=P+r<span class="hljs-number">+1</span>;<span class="hljs-comment">//哨兵位置</span><br>	<span class="hljs-type">int</span> siz = <span class="hljs-number">1</span>;<span class="hljs-comment">//记录当前子树大小</span><br><br>	<span class="hljs-keyword">while</span>(l^<span class="hljs-number">1</span>^r) &#123; <span class="hljs-comment">//当l与r互为兄弟时，只有最后一位不同</span><br>		<span class="hljs-keyword">if</span>(~l&amp;<span class="hljs-number">1</span>) tr[l^<span class="hljs-number">1</span>]+=siz*k,sum[l^<span class="hljs-number">1</span>]+=k;<br>		<span class="hljs-keyword">if</span>(r&amp;<span class="hljs-number">1</span>) tr[r^<span class="hljs-number">1</span>]+=siz*k,sum[r^<span class="hljs-number">1</span>]+=k;<br>		<span class="hljs-comment">//类似递归线段树 tr[p] += tag[p]*(r-l+1)</span><br>		l&gt;&gt;=<span class="hljs-number">1</span>;<br>		r&gt;&gt;=<span class="hljs-number">1</span>;<br>		siz&lt;&lt;=<span class="hljs-number">1</span>;<br>		<span class="hljs-comment">//每次向上走时子树大小都会增加一倍</span><br>		tr[l] = tr[l&lt;&lt;<span class="hljs-number">1</span>]+tr[l&lt;&lt;<span class="hljs-number">1</span>|<span class="hljs-number">1</span>]+sum[l]*siz;<span class="hljs-comment">//维护父子关系</span><br>		tr[r] = tr[r&lt;&lt;<span class="hljs-number">1</span>]+tr[r&lt;&lt;<span class="hljs-number">1</span>|<span class="hljs-number">1</span>]+sum[r]*siz;<br>	&#125;<br>	<span class="hljs-keyword">for</span>(l&gt;&gt;=<span class="hljs-number">1</span>,siz&lt;&lt;=<span class="hljs-number">1</span>; l; l&gt;&gt;=<span class="hljs-number">1</span>,siz&lt;&lt;=<span class="hljs-number">1</span>) tr[l] = tr[l&lt;&lt;<span class="hljs-number">1</span>]+tr[l&lt;&lt;<span class="hljs-number">1</span>|<span class="hljs-number">1</span>]+sum[l]*siz; <span class="hljs-comment">//更新上传至根节点</span><br>&#125;<br></code></pre></td></tr></table></figure>
-<p>同时查询函数也要进行一些修改</p>
+<p>同时查询函数也要进行一些修改，和区间修改类似，加上lazytag的影响即可，此处不呈现代码。</p>
+<h3 id="but">but</h3>
+<p><strong>反转</strong></p>
+<p>当处理多个信息有优先级的时候就没法合并了，那么zkw线段树就失效了吗？那么多人说的牛x的东西原来这么辣？</p>
+<p>nonono</p>
+<p>我们注意到如果一个叶子节点向上跳父亲，那么跳多少级就是右移多少位，那么就可以直接pushdown了。只需要找到最深多少，每一层深度多少，然后循环从上往下pushdown即可。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">modify_add</span><span class="hljs-params">(ll l, ll r, ll k)</span></span><br><span class="hljs-function"></span>&#123;<br>	l += P - <span class="hljs-number">1</span>, r += P + <span class="hljs-number">1</span>;<br>	<span class="hljs-keyword">for</span> (ll dep = DEP - <span class="hljs-number">1</span>; dep; dep --) &#123; <span class="hljs-built_in">pushdown</span>(l &gt;&gt; dep, <span class="hljs-number">1</span> &lt;&lt; dep); <span class="hljs-built_in">pushdown</span>(r &gt;&gt; dep, <span class="hljs-number">1</span> &lt;&lt; dep); &#125;<br>	ll siz = <span class="hljs-number">1</span>;<br>	<span class="hljs-keyword">for</span> (; l ^ r ^ <span class="hljs-number">1</span>; )<br>	&#123;<br>		<span class="hljs-keyword">if</span> (~l &amp; <span class="hljs-number">1</span>) tr[l^<span class="hljs-number">1</span>] += k * siz, sum[l^<span class="hljs-number">1</span>] += k;<br>		<span class="hljs-keyword">if</span> (r &amp; <span class="hljs-number">1</span>) tr[r^<span class="hljs-number">1</span>] += k * siz, sum[r^<span class="hljs-number">1</span>] += k;<br>		l &gt;&gt;= <span class="hljs-number">1</span>, r &gt;&gt;= <span class="hljs-number">1</span>, siz &lt;&lt;= <span class="hljs-number">1</span>;<br>		tr[l] = tr[l&lt;&lt;<span class="hljs-number">1</span>] + tr[l&lt;&lt;<span class="hljs-number">1</span>|<span class="hljs-number">1</span>];<br>		tr[r] = tr[r&lt;&lt;<span class="hljs-number">1</span>] + tr[r&lt;&lt;<span class="hljs-number">1</span>|<span class="hljs-number">1</span>];<br>	&#125;<br>	<span class="hljs-keyword">for</span> (l &gt;&gt;= <span class="hljs-number">1</span>; l; l &gt;&gt;= <span class="hljs-number">1</span>, r &gt;&gt;= <span class="hljs-number">1</span>)<br>		tr[l] = tr[l&lt;&lt;<span class="hljs-number">1</span>] + tr[l&lt;&lt;<span class="hljs-number">1</span>|<span class="hljs-number">1</span>];<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>如此可以处理多个信息合并的问题了。同时区间查询的时候也只需采用最基本的查询方式只需要最前面加上pushdown即可。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">ll <span class="hljs-title">query</span><span class="hljs-params">(ll l, ll r)</span></span><br><span class="hljs-function"></span>&#123;<br>	l += P - <span class="hljs-number">1</span>, r += P + <span class="hljs-number">1</span>;<br>	ll ans = <span class="hljs-number">0</span>;<br>	<span class="hljs-keyword">for</span> (ll dep = DEP - <span class="hljs-number">1</span>; dep; dep --) &#123; <span class="hljs-built_in">pushdown</span>(l &gt;&gt; dep, <span class="hljs-number">1</span> &lt;&lt; dep); <span class="hljs-built_in">pushdown</span>(r &gt;&gt; dep, <span class="hljs-number">1</span> &lt;&lt; dep); &#125;<br>	<span class="hljs-keyword">for</span> (; l ^ r ^ <span class="hljs-number">1</span>; l &gt;&gt;= <span class="hljs-number">1</span>, r &gt;&gt;= <span class="hljs-number">1</span>)<br>	&#123;<br>		<span class="hljs-keyword">if</span> (~l &amp; <span class="hljs-number">1</span>) ans += tr[l^<span class="hljs-number">1</span>];<br>		<span class="hljs-keyword">if</span> (r &amp; <span class="hljs-number">1</span>) ans += tr[r^<span class="hljs-number">1</span>];<br>	&#125;<br>	<span class="hljs-keyword">return</span> ans;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这就是zkw线段树的基本操作，代码短小精悍，常数又小，为何不来一试。</p>
 
                 
               </div>
@@ -410,12 +419,6 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
-                    
-                      <a href="/2025/01/28/%E6%97%A0%E9%A2%981-28/" title="无题1.28">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">无题1.28</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
                     
                   </article>
                   <article class="post-next col-6">
